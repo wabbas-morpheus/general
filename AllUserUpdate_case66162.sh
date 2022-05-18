@@ -9,6 +9,6 @@ FILE_TO_CHANGE="SSH.py"
 
 for i in $USER_NAMES; do
     for n in $FILE_TO_CHANGE; do
-        cp $FILE_PATH/$n $DESTINATION_PATH/$i/Terraform/
+        cp $FILE_PATH/$n $DESTINATION_PATH/$i/
     done
 done
