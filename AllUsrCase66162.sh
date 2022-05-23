@@ -6,7 +6,7 @@ DESTINATION_PATH="/var/opt/morpheus/morpheus-ui/tempRepoTest"
 
 #Set Files to Change Names Here
 #FILE_TO_CHANGE="SSH.py"
-
+echo "Hello"
 #for i in $USER_NAMES; do
 #    for n in $FILE_TO_CHANGE; do
 #        cp $FILE_PATH/$n $DESTINATION_PATH/$i/
