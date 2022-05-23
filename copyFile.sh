@@ -1,0 +1,7 @@
+f1="/var/opt/morpheus/morpheus-local/repo/git/fa1eb481e857370c888c18e7bf13536c"
+f2="/var/opt/morpheus/morpheus-ui/tempRepoTest"
+direct1="Internal"
+file1="SSH.py"
+f1+="/${file1}"
+cp "$f1" "$f2/$direct1/$file1"
+echo "Done"
