@@ -1,3 +1,2 @@
-f = open("demofile2.txt", "a")
-f.write("Now the file has more content!")
+f = open("demofile2.txt", "x")
 f.close()
