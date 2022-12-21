@@ -51,6 +51,14 @@ client_id = var.clientId
 client_secret = var.clientSecret
 }
 
+locals {
+  custom_message = var.custom_message 
+}
+
+output "message" {
+  value = local.custom_message 
+}
+
 resource "azurerm_resource_group" "my_rg" {
   name     = var.resgrp
   location = "uksouth"
