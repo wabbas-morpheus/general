@@ -1,3 +1,14 @@
+terraform {
+  required_providers {
+    azurerm = {
+      source  = "hashicorp/azurerm"
+      version = "=3.3.0"
+    }
+  }
+  required_version = ">= 1.0.1"
+}
+
+
 variable "subId" {
   type    = string
   default = ""
@@ -28,14 +39,7 @@ variable "resgrp" {
 }
 
 
-terraform {
-  required_providers {
-    azurerm = {
-      source  = "hashicorp/azurerm"
-      version = ">= 1.1.0"
-    }
-  }
-}
+
 
 # Configure the Microsoft Azure Provider
 provider "azurerm" {
@@ -45,7 +49,6 @@ subscription_id =var.subId
 tenant_id=var.tenantId
 client_id = var.clientId
 client_secret = var.clientSecret
-skip_provider_registration = true
 }
 
 resource "azurerm_resource_group" "my_rg" {
