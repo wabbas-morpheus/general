@@ -8,11 +8,11 @@ from datetime import datetime,date
 from morpheuscypher import Cypher
 
 
-shutdownDays = 1
+shutdownDays = 90
 listOfInstOverTimeLimt = []
 port = 587  # For starttls
 smtp_server = "smtp.office365.com"
-sender_email = "wabbas@morpheusdata.com"
+sender_email = "myemail@outlook.com"
 
 
 applianceURL = morpheus['morpheus']['applianceUrl']
@@ -112,7 +112,7 @@ def getOfflineInstances():
 
             #print(datetime_object)  # printed in default format
             #print("days = "+str(delta.days))
-            if delta.days >= shutdownDays  and len(offServers) >=1:
+            if delta.days > shutdownDays  and len(offServers) >=1:
                 #print("Send mail")
                 listOfInstOverTimeLimt.append({'tenant':tenant,'cloud':cloud,'id':instanceID,'instanceName':instanceName,'price':instancePrice,'ownerEmail':owner['email'],'servers':offServers})
         
