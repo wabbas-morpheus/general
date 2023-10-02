@@ -6,13 +6,14 @@ import requests
 import sys
 from datetime import datetime,date
 from morpheuscypher import Cypher
-
+from email.mime.text import MIMEText
+from email.mime.multipart import MIMEMultipart
 
 shutdownDays = 1
 listOfInstOverTimeLimt = []
 port = 587  # For starttls
 smtp_server = "smtp.office365.com"
-sender_email = "wabbas@morpheusdata.com"
+sender_email = "myemail@outlook.com"
 
 
 applianceURL = morpheus['morpheus']['applianceUrl']
@@ -21,6 +22,9 @@ apiToken = "Bearer "+morpheus['morpheus']['apiAccessToken']
 #Get email password from Morpheus Cypher
 c = Cypher(url=applianceURL,morpheus=morpheus,ssl_verify=False)
 email_password=c.get("secret/mypass000")
+
+
+
 
 
 def getServers():
@@ -64,12 +68,23 @@ def getUserWithId(uid,users):
             return u
 
 def formatInstanceForEmail(i):
-  
+
+
     inst = ""
     message= """\
 Subject: Instance {instanceName} has been offline for over {shutdownDays} days
 
 Instance {instanceName} has been offline for over {shutdownDays} days:
+
+<html>
+  <body>
+    <p>Hi,<br>
+       How are you?<br>
+       <a href="http://www.realpython.com">Real Python</a> 
+       has many great tutorials.
+    </p>
+  </body>
+</html>
 
 
 """.format(shutdownDays=shutdownDays,instanceName=i['instanceName'])
@@ -81,7 +96,8 @@ Instance {instanceName} has been offline for over {shutdownDays} days:
         sNames = sNames + s['serverName'] +', '
 
     inst = inst + sNames.rstrip(", ")+'\n\n\n'
-    return inst
+    html = MIMEText(inst, "html")
+    return html
 
 def getOfflineInstances():
     morphInstances = getInstances()# Get instances/servers from morpheus api
@@ -110,8 +126,8 @@ def getOfflineInstances():
             delta = today - datetime_object
 
 
-            #print(datetime_object)  # printed in default format
-            #print("days = "+str(delta.days))
+            print(datetime_object)  # printed in default format
+            print("days = "+str(delta.days))
             if delta.days >= shutdownDays  and len(offServers) >=1:
                 #print("Send mail")
                 listOfInstOverTimeLimt.append({'tenant':tenant,'cloud':cloud,'id':instanceID,'instanceName':instanceName,'price':instancePrice,'ownerEmail':owner['email'],'servers':offServers})
@@ -121,6 +137,10 @@ def getOfflineInstances():
     return listOfInstOverTimeLimt
 
 def sendMail(instance,ownerEmail):
+    message = MIMEMultipart("alternative")
+    message["Subject"] = "multipart test"
+    message["From"] = sender_email
+    message["To"] = receiver_email
     context = ssl._create_unverified_context()
     with smtplib.SMTP(smtp_server, port) as server:
         server.ehlo()  # Can be omitted
