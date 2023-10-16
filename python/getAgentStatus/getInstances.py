@@ -1,8 +1,7 @@
 import json
 import requests
 
-#applianceURL = morpheus['morpheus']['applianceUrl']
-applianceURL = "https://wa-morpheus-54.test.morpheusdata.com"
+applianceURL = morpheus['morpheus']['applianceUrl']
 apiToken = "Bearer "+morpheus['morpheus']['apiAccessToken']
 
 def main():
